@@ -3,7 +3,7 @@
 from random import randrange
 import argparse
 import re
-
+import os
 
 class iprem_Tool():
     """ replace IP addresses with random values. """
@@ -33,21 +33,24 @@ class iprem_Tool():
     
     def run(self):
         """ Print out useful information about the log file. """
-        new_File = ""
-        for logevent in open(self.logfile, 'r'):
-            line = logevent
+        check_path = self.logfile
+        if os.path.isfile(check_path):
+            new_File = ""
+            for logevent in open(self.logfile, 'r'):
+                line = logevent
 
-            # replace IP addresses
-            line = re.sub(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', self._replace_ip, line)
-            new_Line = line.strip()
-            #print new_Line
-            
-            
-            new_File = new_File + new_Line + '\n'
-        f = open(self.logfile, 'w')
-        f.write(new_File)
-        f.close()
-
+                # replace IP addresses
+                line = re.sub(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', self._replace_ip, line)
+                new_Line = line.strip()
+                #print new_Line
+                
+                
+                new_File = new_File + new_Line + '\n'
+            f = open(self.logfile, 'w')
+            f.write(new_File)
+            f.close()
+        else:
+            print ('%s is a directory. Please provide file name.'% check_path)
 
 
 if __name__ == '__main__':
