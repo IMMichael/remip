@@ -30,9 +30,9 @@ class iprem_Tool():
             return self.replacements.setdefault(ip, '%i.%i.%i.%i' % (n1, n2, n3, n4))
 
 
-    def file_handle(self,check_path):
+    def file_handle(self,filename):
         new_File = ""
-        for logevent in open(check_path, 'r'):
+        for logevent in open(filename, 'r'):
                 line = logevent
 
                 # replace IP addresses
@@ -42,10 +42,11 @@ class iprem_Tool():
                 #print new_Line
 
                 new_File = new_File + new_Line + '\n'
-        f = open(check_path, 'w')
+        
+        f = open(filename, 'w')
         f.write(new_File)
         f.close()
-        return check_path
+        return filename
         
 
     
@@ -53,10 +54,15 @@ class iprem_Tool():
         """ Print out useful information about the log file. """
         check_path = self.logfile
         if os.path.isfile(check_path):
-            self.file_handle(check_path)
+            filename = check_path
+            self.file_handle(filename)
         else:
-            print ('%s is a directory. Please provide file name.'% check_path)
-            #for filename in os.listdir(self.logfile)
+            #print ('%s is a directory. Please provide file name.'% check_path)
+            check_path = os.path.abspath(check_path)
+            os.chdir(check_path)
+            for filename in os.listdir(check_path):
+                    
+                    self.file_handle(filename)
 
 
 
