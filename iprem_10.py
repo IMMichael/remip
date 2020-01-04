@@ -39,9 +39,8 @@ class iprem_Tool():
                 line = re.sub(
                     r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', self._replace_ip, line)
                 new_Line = line.strip()
-                #print new_Line
-
                 new_File = new_File + new_Line + '\n'
+                
         if self.verbose:
             print filename + ':' + '\n' + new_File
             pass
