@@ -8,8 +8,9 @@ import os
 class iprem_Tool():
     """ replace IP addresses with random values. """
 
-    def __init__(self, arg_logfile):
+    def __init__(self, arg_logfile, arg_verbose):
         self.logfile = arg_logfile
+        self.verbose = arg_verbose
         self.replacements = {}
 
 
@@ -31,7 +32,6 @@ class iprem_Tool():
 
 
     def file_handle(self,filename,new_File=""):
-        #new_File = ""
         for logevent in open(filename, 'r'):
                 line = logevent
 
@@ -42,7 +42,9 @@ class iprem_Tool():
                 #print new_Line
 
                 new_File = new_File + new_Line + '\n'
-        
+        if self.verbose:
+            print filename + ':' + '\n' + new_File
+            pass
         f = open(filename, 'w')
         f.write(new_File)
         f.close()
@@ -60,7 +62,7 @@ class iprem_Tool():
             check_path = os.path.abspath(check_path)
             os.chdir(check_path)
             for filename in os.listdir(check_path):
-                    
+                    filename = os.path.abspath(filename)
                     self.file_handle(filename)
 
 
@@ -68,7 +70,8 @@ class iprem_Tool():
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description = 'Anonymizes log files by replacing IP addresses.')
     argparser.add_argument('arg', type=str, help='File or Directory only.')
+    argparser.add_argument('--verbose','-v', action='store_true', default=False, help='Provides further verbosity to stdout.')
     v_args = argparser.parse_args()
 
-    tool = iprem_Tool(arg_logfile=v_args.arg)
+    tool = iprem_Tool(arg_logfile=v_args.arg,arg_verbose=v_args.verbose)
     tool.run()
