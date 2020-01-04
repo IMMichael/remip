@@ -30,8 +30,8 @@ class iprem_Tool():
             return self.replacements.setdefault(ip, '%i.%i.%i.%i' % (n1, n2, n3, n4))
 
 
-    def file_handle(self,filename):
-        new_File = ""
+    def file_handle(self,filename,new_File=""):
+        #new_File = ""
         for logevent in open(filename, 'r'):
                 line = logevent
 
@@ -68,7 +68,7 @@ class iprem_Tool():
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description = 'Anonymizes log files by replacing IP addresses.')
     argparser.add_argument('arg', type=str, help='File or Directory only.')
-    args = argparser.parse_args()
+    v_args = argparser.parse_args()
 
-    tool = iprem_Tool(arg_logfile=args.logfile)
+    tool = iprem_Tool(arg_logfile=v_args.arg)
     tool.run()
