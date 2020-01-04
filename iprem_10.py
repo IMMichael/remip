@@ -67,7 +67,6 @@ class iprem_Tool():
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description = 'Anonymizes log files by replacing IP addresses.')
-    #argparser.description = 'Anonymizes log files by replacing IP addresses.'
     argparser.add_argument('arg', type=str, help='File or Directory only.')
     args = argparser.parse_args()
 
