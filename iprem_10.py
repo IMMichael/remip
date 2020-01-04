@@ -57,7 +57,6 @@ class iprem_Tool():
             filename = check_path
             self.file_handle(filename)
         else:
-            #print ('%s is a directory. Please provide file name.'% check_path)
             check_path = os.path.abspath(check_path)
             os.chdir(check_path)
             for filename in os.listdir(check_path):
@@ -67,9 +66,9 @@ class iprem_Tool():
 
 
 if __name__ == '__main__':
-    argparser = argparse.ArgumentParser()
-    argparser.description = 'Anonymizes log files by replacing IP addresses.'
-    argparser.add_argument('logfile', type=str)
+    argparser = argparse.ArgumentParser(description = 'Anonymizes log files by replacing IP addresses.')
+    #argparser.description = 'Anonymizes log files by replacing IP addresses.'
+    argparser.add_argument('arg', type=str, help='File or Directory only.')
     args = argparser.parse_args()
 
     tool = iprem_Tool(arg_logfile=args.logfile)
