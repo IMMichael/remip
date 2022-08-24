@@ -71,7 +71,7 @@ if __name__ == '__main__':
         description = 'Anonymizes log files by replacing IP addresses.'
         )
     argparser.add_argument(
-        'arg', type=str, help='File or Directory only.'
+        '--file', '-f', type=str, help='File or Directory only.', required=True
         )
     argparser.add_argument(
         '--verbose','-v', action='store_true', default=False, help='Provides further verbosity to stdout.'
